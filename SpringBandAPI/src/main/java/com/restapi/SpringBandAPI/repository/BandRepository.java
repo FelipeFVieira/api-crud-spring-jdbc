@@ -1,5 +1,5 @@
 package com.restapi.SpringBandAPI.repository;
 
-public interface MyCrud {
+public class BandRepository {
 
 }
