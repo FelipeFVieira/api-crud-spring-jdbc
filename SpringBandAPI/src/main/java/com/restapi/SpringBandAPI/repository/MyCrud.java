@@ -12,7 +12,7 @@ public interface MyCrud {
 	
 	public int Update(Band band, int id);
 	
-	public int Insert(Band band);
+	public Band Insert(Band band);
 	
 	public boolean Delete(int id);
 

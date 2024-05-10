@@ -1,9 +1,15 @@
 package com.restapi.SpringBandAPI.repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.restapi.SpringBandAPI.model.Band;
@@ -47,9 +53,18 @@ public class BandRepository implements MyCrud {
 	}
 
 	@Override
-	public int Insert(Band band) {
-		Object[] params = {band.getName(), band.getRelease_year(), band.getStatus()};
-		return jdbcTemplate.update(SQLINSERT, params);	
+	public Band Insert(Band band) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(
+		  new PreparedStatementCreator() {
+		    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+		      return connection.prepareStatement(SQLINSERT, new String[] {"id"});
+		  }
+		}, keyHolder);	
+		
+	    int idGenerated = keyHolder.getKey().intValue();
+	    return findById(idGenerated);
 	}
 
 	@Override
