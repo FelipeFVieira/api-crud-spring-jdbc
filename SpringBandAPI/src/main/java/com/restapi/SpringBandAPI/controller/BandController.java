@@ -54,6 +54,18 @@ public class BandController {
 	    }
 	}
 	
+
+	@DeleteMapping(path="/del/{id}")
+	public @ResponseBody ResponseEntity<Band> deleteBand (@PathVariable int id) {
+		Band band = null;
+		band = bandRepository.findById(id);
+		if (band == null) {
+			return ResponseEntity.notFound().build();
+		} 
+		bandRepository.Delete(id);
+		return ResponseEntity.ok(band);
+	}
+	
 	
 	
 }
