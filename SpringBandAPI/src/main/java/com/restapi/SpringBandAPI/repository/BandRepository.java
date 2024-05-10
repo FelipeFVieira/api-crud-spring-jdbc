@@ -48,7 +48,8 @@ public class BandRepository implements MyCrud {
 
 	@Override
 	public int Insert(Band band) {
-		return 0;
+		Object[] params = {band.getName(), band.getRelease_year(), band.getStatus()};
+		return jdbcTemplate.update(SQLINSERT, params);	
 	}
 
 	@Override
