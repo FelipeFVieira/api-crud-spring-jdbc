@@ -47,7 +47,7 @@ public class BandRepository implements MyCrud {
 	}
 
 	@Override
-	public int Update(Band band, int id) {
+	public Band Update(Band band, int id) {
 		Object[] params = {band.getName(), band.getRelease_year(), band.getStatus(), id};
 		return jdbcTemplate.update(SQLUPDATE, params);
 	}

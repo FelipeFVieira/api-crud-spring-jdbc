@@ -10,7 +10,7 @@ public interface MyCrud {
 	
 	public Band findById(int id);
 	
-	public int Update(Band band, int id);
+	public Band Update(Band band, int id);
 	
 	public Band Insert(Band band);
 	
