@@ -54,8 +54,16 @@ public class BandRepository implements MyCrud {
 
 	@Override
 	public boolean Delete(int id) {
-		// TODO Auto-generated method stub
+		Object[] params = {id};
+		
+		int rowsAffected = jdbcTemplate.update(SQLDELETE, params);
+	    
+	    if (rowsAffected > 0) {
+	        return true;
+	    } 
+	    
 		return false;
+	
 	}
 
 }
