@@ -54,32 +54,6 @@ public class BandController {
 	    }
 	}
 	
-	@DeleteMapping(path="/del/{id}")
-	public @ResponseBody ResponseEntity<Band> deleteBand (@PathVariable int id) {
-		Band band = null;
-		band = bandRepository.findById(id);
-		if (band == null) {
-			return ResponseEntity.notFound().build();
-		} 
-		bandRepository.Delete(id);
-		return ResponseEntity.ok(band);
-	}
 	
-	@PutMapping(path="/update/{id}")
-	public @ResponseBody ResponseEntity<Band> updateBand(@PathVariable int id, @RequestBody Band updatedBand) {
-		if (updatedBand.getName() == null || updatedBand.getRelease_year() == null|| updatedBand.getStatus() == null) {
-			 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	    }
-		
-		Band band = null;
-		band = bandRepository.findById(id);
-		if (band == null) {
-			return ResponseEntity.notFound().build();
-		}
-	  
-		Band savedBand = bandRepository.Update(band, id);
-	    return ResponseEntity.ok(savedBand);
-		
-	}
 	
 }
