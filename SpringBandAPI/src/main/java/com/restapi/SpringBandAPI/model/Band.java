@@ -6,7 +6,7 @@ public class Band {
 	
 	private String name;
 	
-	private int release_year;
+	private Integer release_year;
 	
 	private String status;
 
@@ -36,7 +36,7 @@ public class Band {
 		this.name = name;
 	}
 
-	public int getRelease_year() {
+	public Integer getRelease_year() {
 		return release_year;
 	}
 
