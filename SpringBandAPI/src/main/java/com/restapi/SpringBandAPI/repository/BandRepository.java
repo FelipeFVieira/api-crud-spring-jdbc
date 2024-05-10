@@ -48,8 +48,19 @@ public class BandRepository implements MyCrud {
 
 	@Override
 	public Band Update(Band band, int id) {
-		Object[] params = {band.getName(), band.getRelease_year(), band.getStatus(), id};
-		return jdbcTemplate.update(SQLUPDATE, params);
+		jdbcTemplate.update(
+		  new PreparedStatementCreator() {
+		    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+		    	  PreparedStatement ps = connection.prepareStatement(SQLUPDATE, new String[] {"id"});
+		            ps.setString(1, band.getName()); 
+		            ps.setInt(2, band.getRelease_year());
+		            ps.setString(3, band.getStatus());
+		            ps.setInt(4,id);
+		            return ps;
+		  }
+		});	
+		
+	    return findById(id);
 	}
 
 	@Override
@@ -59,7 +70,11 @@ public class BandRepository implements MyCrud {
 		jdbcTemplate.update(
 		  new PreparedStatementCreator() {
 		    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-		      return connection.prepareStatement(SQLINSERT, new String[] {"id"});
+		    	  PreparedStatement ps = connection.prepareStatement(SQLINSERT, new String[] {"id"});
+		            ps.setString(1, band.getName()); 
+		            ps.setInt(2, band.getRelease_year());
+		            ps.setString(3, band.getStatus());
+		            return ps;
 		  }
 		}, keyHolder);	
 		
